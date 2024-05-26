@@ -532,7 +532,7 @@ class _RouletteState extends State<Roulette>
                       int drawCount = luckyDrawState.drawCount;
 
                       if (drawCount <= 0) {
-                        _showRulesDialog();
+                        _showNoDrawCountDialog();
                         return;
                       }
                     }
