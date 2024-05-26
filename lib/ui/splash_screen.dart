@@ -1,6 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test/cubit/login/login_cubit.dart';
+import 'package:test/cubit/lucky_draw/lucky_draw_cubit.dart';
 import 'package:test/ui/home_screen.dart';
 
 import '../constants/app_colors.dart';
@@ -21,8 +25,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future init() async {
+    SharedPreferences _sharedPreferences =
+        await SharedPreferences.getInstance();
+    await _sharedPreferences.remove("token");
+    // await _sharedPreferences.clear();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).popAndPushNamed(HomeScreen.routeName);
+      BlocProvider.of<LoginCubit>(context).checkUserLogin();
     });
   }
 
@@ -36,12 +44,24 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: const BoxDecoration(
           color: AppColors.common_white,
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Center(
-              child: CircularProgressIndicator(),
+            BlocListener<LoginCubit, LoginState>(
+              listener: (context, state) {
+                // TODO: implement listener
+                if (state is! LoginLoading || state is! LoginInitial) {
+                  if (state is LoginSuccess) {
+                    BlocProvider.of<LuckyDrawCubit>(context).getDrawRecord();
+                  }
+                  Navigator.of(context).popAndPushNamed(HomeScreen.routeName);
+                  return;
+                }
+              },
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             )
           ],
         ),

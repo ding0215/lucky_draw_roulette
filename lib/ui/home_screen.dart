@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/ui/lucky_draw_ui.dart';
+import 'package:test/ui/lucky_draw_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

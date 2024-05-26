@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test/cubit/login/login_cubit.dart';
+import 'package:test/cubit/lucky_draw/lucky_draw_cubit.dart';
 import 'package:test/ui/splash_screen.dart';
 import 'package:test/utils/routes.dart';
 
@@ -13,16 +16,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Protech test',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.grey, useMaterial3: true),
-      routes: Routes.routes,
-      navigatorKey: navigatorKey,
-      home: LayoutBuilder(
-        builder: (context, constraints) {
-          return const SplashScreen();
-        },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (_) => LoginCubit()
+        ),
+        BlocProvider<LuckyDrawCubit>(
+          create: (_) => LuckyDrawCubit()
+        )
+      ],
+      child: MaterialApp(
+        title: 'Protech test',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primarySwatch: Colors.grey, useMaterial3: true),
+        routes: Routes.routes,
+        navigatorKey: navigatorKey,
+        home: LayoutBuilder(
+          builder: (context, constraints) {
+            return const SplashScreen();
+          },
+        ),
       ),
     );
   }
