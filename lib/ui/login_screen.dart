@@ -65,6 +65,11 @@ class LoginScreen extends StatelessWidget {
                   TextField(
                     controller: _usernameController,
                     decoration: InputDecoration(
+                        hintText: "用户名",
+                        hintStyle: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
                         filled: true,
                         prefixIcon: const Icon(Icons.person),
                         contentPadding: const EdgeInsets.symmetric(
@@ -89,6 +94,11 @@ class LoginScreen extends StatelessWidget {
                       controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
+                          hintText: "用户密码",
+                          hintStyle: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey,
+                          ),
                           filled: true,
                           prefixIcon: const Icon(Icons.lock),
                           fillColor: const Color.fromARGB(174, 208, 217, 221),
@@ -120,6 +130,7 @@ class LoginScreen extends StatelessWidget {
                           }
 
                           if (state is LoginSuccess) {
+                            _showSnackbar(context, text: "登录成功");
                             BlocProvider.of<LuckyDrawCubit>(context)
                                 .getDrawRecord();
                             Navigator.of(context).pop();
@@ -133,6 +144,7 @@ class LoginScreen extends StatelessWidget {
                                   return;
                                 }
                                 _login(context);
+                                FocusManager.instance.primaryFocus?.unfocus();
                               },
                               style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(

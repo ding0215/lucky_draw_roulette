@@ -46,4 +46,9 @@ class LoginCubit extends Cubit<LoginState> {
 
     return emit(LoginSuccess(user: user));
   }
+
+  Future<void> logout() async {
+    await _storageHelper.removeToken();
+    return emit(LogoutState());
+  }
 }

@@ -18,3 +18,5 @@ final class LoginFailed extends LoginState {
 
   LoginFailed({required this.errorMsg});
 }
+
+final class LogoutState extends LoginState {}

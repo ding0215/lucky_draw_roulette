@@ -115,4 +115,9 @@ class StorageHelper {
 
     return user;
   }
+
+  Future<void> removeToken() async {
+    final sharedPreference = await SharedPreferences.getInstance();
+    await sharedPreference.remove("token");
+  }
 }
