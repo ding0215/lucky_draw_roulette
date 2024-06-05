@@ -1,6 +1,6 @@
-# test
+# Lucky Draw Roulette
 
-A new Flutter project.
+A Flutter project that use to demonstrating a lucky draw roulette functionality.
 
 ## Getting Started
 
